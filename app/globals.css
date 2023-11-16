@@ -1,0 +1,117 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.linkUnderline {
+    border-bottom-width: 0;
+    background-image: linear-gradient(transparent, transparent), linear-gradient(#0e0d0d, #fff);
+    background-size: 0 1px;
+    background-position: 0 100%;
+    background-repeat: no-repeat;
+    transition: background-size 0.1s ease-in;
+}
+
+.linkUnderlineBlack {
+    background-image: linear-gradient(transparent, transparent), linear-gradient(rgb(0, 0, 0), rgb(0, 0, 0));
+}
+
+.linkUnderline:hover {
+    background-size: 100% 1px;
+    background-position: 0 100%;
+}
+*{
+  font-family: 'poppins', sans-serif;
+  background-image: (url"/assets/img/bg2.png");
+  scroll-behavior: smooth;
+}
+
+html,
+body {
+    margin: 0 !important;
+}
+
+.fullscreen {
+  height: 100vh;
+}
+
+/* section {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 3em;
+  font-weight: 400;
+}*/
+
+.bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  z-index: -1;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.mb-responsive-hide {
+  display: block;
+}
+.mb-responsive-display {
+  display:none;
+}
+.mb-about {
+  display: flex;
+}
+.font-responsive {
+  font-size: 80px;
+}
+.seccion
+{
+    text-transform: uppercase;
+    -webkit-transform: rotate(270deg);
+    -moz-transform: rotate(270deg);
+    -ms-transform: rotate(270deg);
+    -o-transform: rotate(270deg);
+    transform: rotate(270deg);
+    -webkit-transform-origin: 0 0;
+    -moz-transform-origin: 0 0;
+    -ms-transform-origin: 0 0;
+    -o-transform-origin: 0 0;
+    transform-origin: 0 0;
+    top: 60%;
+}
+
+@media only screen and (max-width: 780px) {
+  .mb-responsive-hide{
+    display: none;
+  }
+  .mb-responsive-display {
+    display: block;
+  }
+  .mb-about {
+    display: block;
+  }
+  .font-responsive {
+    font-size: 50px;
+  }
+}
+
+@media only screen and (min-width: 1025px) {
+  .logo-width{
+    width: 70%;
+  }
+}
+
+@media only screen and (min-width: 781px) and (max-width: 1024px){
+  .logo-width{
+    width: 45%;
+  }
+}
+
+
+

@@ -17,6 +17,8 @@ import Link from 'next/link';
 import styles from '../app/page.module.css'
 import { Contact } from '@/types/Contact';
 import { motion, useAnimation } from 'framer-motion';
+import { Language } from '@/components/atoms/LanguageContext';
+import { AOSInit } from '@/components/widgets/Aos';
 
 export default function Home() {
 
@@ -25,7 +27,24 @@ export default function Home() {
   const [contacts, setContact] = useState<Contact[]>([]);
   const [phases, setPhases] = useState<Phases[]>([]);
   const [majorAchieve, setMajorAchieve] = useState<MajorAchievement[]>([]);
-  const { selectedLanguage } = useLanguage();
+  // const { selectedLanguage } = useLanguage();
+
+  const { selectedLanguage, switchLanguage } = useLanguage();
+
+  // Initialize the dropdown state
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
+  const toggleDropdown = () => {
+    setIsDropdownOpen(!isDropdownOpen);
+  };
+
+  const languageOptions = {
+    en: 'English',
+    jp: 'Japanese',
+    zh: 'Chinese',
+    ko: 'Korean',
+    // Add other language options as needed
+  } as { [key: string]: string };
 
   const translatedTexts = {
     en: {
@@ -107,6 +126,86 @@ export default function Home() {
       className="relative"
       transition={{ duration: 1 }}
     >
+      <nav className="z-50">
+        <div className="relative bg-transparent">
+          <div className="mx-auto px-4 sm:px-6">
+            <div className="flex justify-between items-center border-gray-100 py-6 md:space-x-10">
+              <div className="flex justify-start xl:w-0 xl:flex-1">
+                <div className="relative mt-1">
+                  <div className="h-26 bg-transparent lg:hidden">
+                    <button
+                      className={`relative text-center h-10 w-16 transition-all duration-500
+                      before:absolute before:top-0 before:left-0 before:w-full before:h-full before:bg-white before:transition-all
+                      before:duration-300 before:opacity-10 before:hover:opacity-0 before:hover:scale-50
+                      after:absolute after:top-0 after:left-0 after:w-full after:h-full after:opacity-0 after:transition-all after:duration-300
+                      after:border after:border-white/50 after:scale-125 after:hover:opacity-100 after:hover:scale-100 after:hover:border-black after:hover:border-2`}
+                      onClick={toggleDropdown}
+                    >
+                      <span className="relative text-black uppercase font-thin">
+                        {selectedLanguage.toUpperCase()}
+                      </span>
+                    </button>
+                    {isDropdownOpen && (
+                      <div className="absolute z-10 mt-2 transform -translate-x-1/2 left-1/2 bg-white shadow-lg rounded-md overflow-hidden">
+                        {Object.keys(languageOptions).map((langCode) => (
+                          <button
+                            key={langCode}
+                            className={`block w-full text-left px-4 py-2 text-gray-800 hover:bg-gray-100 ${selectedLanguage === langCode ? 'bg-gray-200' : ''}`}
+                            onClick={() => {
+                              switchLanguage(langCode as Language);
+                              toggleDropdown();
+                            }}
+                          >
+                            {languageOptions[langCode]}
+                          </button>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </div>
+              <div className="hidden lg:flex items-center justify-end md:flex-1 lg:w-0">
+              </div>
+
+              <div className="mb-responsive hidden lg:flex" id="a">
+                <div className="relative">
+                  <div className="place-content-end h-26 bg-transparent">
+                    <button
+                      className={`relative text-center h-10 w-20 transition-all duration-500
+                            before:absolute before:top-0 before:left-0 before:w-full before:h-full before:bg-white before:transition-all
+                            before:duration-300 before:opacity-10 before:hover:opacity-0 before:hover:scale-50
+                            after:absolute after:top-0 after:left-0 after:w-full after:h-full after:opacity-0 after:transition-all after:duration-300
+                            after:border after:border-white/50 after:scale-125 after:hover:opacity-100 after:hover:scale-100 after:hover:border-black after:hover:border-2`}
+                      onClick={toggleDropdown}
+                    >
+                      <span className="relative text-black font-thin">
+                        {languageOptions[selectedLanguage]}
+                      </span>
+                    </button>
+                    {isDropdownOpen && (
+                      <div className="absolute z-10 mt-2 transform -translate-x-1/2 left-1/2 bg-white shadow-lg rounded-md overflow-hidden">
+                        {Object.keys(languageOptions).map((langCode) => (
+                          <button
+                            key={langCode}
+                            className={`block w-full text-left px-4 py-2 text-gray-800 hover:bg-gray-100 ${selectedLanguage === langCode ? 'bg-gray-200' : ''}`}
+                            onClick={() => {
+                              switchLanguage(langCode as Language);
+                              toggleDropdown();
+                            }}
+                          >
+                            {languageOptions[langCode]}
+                          </button>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </nav>
       {employees.length > 0 && (
         <motion.div
           initial={{ opacity: 0, rotateY: -180 }}
@@ -130,8 +229,8 @@ export default function Home() {
             <div className="h-32 overflow-hidden">
               {/* <img className="w-full" src={transformSanityImage(employees[0].employeeBgImage.asset._ref)} alt="" /> */}
             </div>
-            <div className="flex justify-center px-5 -mt-12">
-              <img className="h-32 w-32 bg-transparent p-2 rounded-full" src={transformSanityImage(employees[0].employeeImage.asset._ref)} alt="" />
+            <div className="flex justify-center px-5 py-2 -mt-12">
+              <img className="object-cover h-32 w-32 bg-transparent rounded-full ring-4 ring-white" src={transformSanityImage(employees[0].employeeImage.asset._ref)} alt="" />
             </div>
             <div>
               <div className="text-center px-14">
@@ -261,8 +360,9 @@ export default function Home() {
             </div>
           </motion.div>
         </motion.div>
-      )}
-    </motion.section>
+      )
+      }
+    </motion.section >
   );
 
 

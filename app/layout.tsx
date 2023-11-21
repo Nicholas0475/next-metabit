@@ -42,9 +42,9 @@ export default function RootLayout({ children }: LayoutProps) {
           <Providers>
             <main>
               <DynamicComponentWithNoSSR/>
-              <Header />
+              {/* <Header /> */}
               {children}
-              <Footer />
+              {/* <Footer /> */}
             </main>
           </Providers>
         </LanguageProvider>

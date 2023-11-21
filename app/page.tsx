@@ -7,26 +7,19 @@ import { faFacebook, faXTwitter, faInstagram, faTiktok } from "@fortawesome/free
 import { faGlobe, faGlobe as faSolidGlobe } from "@fortawesome/free-solid-svg-icons";;
 import { Home } from '@/types/Home';
 import Employee from '@/types/Employee';
-import { Phases } from '@/types/Phases';
-import { MajorAchievement } from '@/types/Major-Achievement';
 import React, { useState, useEffect } from 'react';
 import { useLanguage } from '@/components/atoms/LanguageContext';
 import QRCode from 'qrcode.react';
-import { VCardFormatter, VCard } from "@/types/vCardFomatter";
-import Link from 'next/link';
-import styles from '../app/page.module.css'
 import { Contact } from '@/types/Contact';
 import { motion, useAnimation } from 'framer-motion';
 import { Language } from '@/components/atoms/LanguageContext';
-import { AOSInit } from '@/components/widgets/Aos';
 
 export default function Home() {
 
-  const [homes, setHomes] = useState<Home[]>([]);
+
   const [employees, setEmployees] = useState<Employee[]>([]);
   const [contacts, setContact] = useState<Contact[]>([]);
-  const [phases, setPhases] = useState<Phases[]>([]);
-  const [majorAchieve, setMajorAchieve] = useState<MajorAchievement[]>([]);
+
   // const { selectedLanguage } = useLanguage();
 
   const { selectedLanguage, switchLanguage } = useLanguage();
@@ -45,25 +38,6 @@ export default function Home() {
     ko: 'Korean',
     // Add other language options as needed
   } as { [key: string]: string };
-
-  const translatedTexts = {
-    en: {
-      viewProfile: 'View Profile',
-      // Add other English 
-    },
-    jp: {
-      viewProfile: 'プロフィールを見る',
-      // Add other Japanese 
-    },
-    zh: {
-      viewProfile: '查看资料',
-      // Add other Chinese 
-    },
-    ko: {
-      viewProfile: '프로필보기',
-      // Add other Korean 
-    },
-  };
 
   const controls = useAnimation();
 
@@ -89,12 +63,8 @@ export default function Home() {
         const employeeData = await getEmployeeData();
         const phasesData = await getPhasesData();
         const majorAchievementData = await getMajorAchievementData();
-
-        setHomes(homeData);
         setContact(contactData);
         setEmployees(employeeData);
-        setPhases(phasesData);
-        setMajorAchieve(majorAchievementData);
 
         // Check if we are in a browser environment (client side)
         if (typeof window !== 'undefined') {
@@ -227,7 +197,6 @@ export default function Home() {
 
           >
             <div className="h-32 overflow-hidden">
-              {/* <img className="w-full" src={transformSanityImage(employees[0].employeeBgImage.asset._ref)} alt="" /> */}
             </div>
             <div className="flex justify-center px-5 py-2 -mt-12">
               <img className="object-cover h-32 w-32 bg-transparent rounded-full ring-4 ring-white" src={transformSanityImage(employees[0].employeeImage.asset._ref)} alt="" />
@@ -360,8 +329,7 @@ export default function Home() {
             </div>
           </motion.div>
         </motion.div>
-      )
-      }
+      )}
     </motion.section >
   );
 

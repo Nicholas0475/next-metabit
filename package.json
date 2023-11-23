@@ -20,6 +20,7 @@
     "@sanity/vision": "^3.17.0",
     "@tabler/icons-react": "^2.39.0",
     "aos": "^2.3.4",
+    "clipboard-copy": "^4.0.1",
     "date-fns": "^2.30.0",
     "framer-motion": "^10.16.5",
     "next": "13.5.4",
@@ -29,6 +30,7 @@
     "qrcode.react": "^3.1.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-use": "^17.4.0",
     "sanity": "^3.17.0"
   },
   "devDependencies": {

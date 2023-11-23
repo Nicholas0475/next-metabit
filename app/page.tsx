@@ -3,8 +3,8 @@
 import { getContactPageData, getEmployeeData, getHomeData, getMajorAchievementData, getPhasesData } from '@/sanity/sanity-utils';
 import './globals.css';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faFacebook, faXTwitter, faInstagram, faTiktok } from "@fortawesome/free-brands-svg-icons";
-import { faGlobe, faGlobe as faSolidGlobe } from "@fortawesome/free-solid-svg-icons";;
+import { faFacebook, faXTwitter, faInstagram, faTiktok, faSnapchat, faLinkedin, faWhatsapp, faFacebookMessenger, faSquareSnapchat } from "@fortawesome/free-brands-svg-icons";
+import { faArrowRight, faChevronRight, faCopy, faEllipsisH, faEllipsisV, faEnvelope, faGlobe, faGlobe as faSolidGlobe, faTimes } from "@fortawesome/free-solid-svg-icons";;
 import { Home } from '@/types/Home';
 import Employee from '@/types/Employee';
 import React, { useState, useEffect } from 'react';
@@ -13,6 +13,8 @@ import QRCode from 'qrcode.react';
 import { Contact } from '@/types/Contact';
 import { motion, useAnimation } from 'framer-motion';
 import { Language } from '@/components/atoms/LanguageContext';
+import Link from 'next/link';
+import copy from 'clipboard-copy';
 
 export default function Home() {
 
@@ -27,19 +29,101 @@ export default function Home() {
   // Initialize the dropdown state
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
+  const [isCopied, setIsCopied] = useState(false);
+
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
   };
 
+  const handleCopyClick = async () => {
+    try {
+      await copy('https://youtu.be/shZyg5VFI1Y?si=-wonQDEQ2dR8eGjU'); // Replace with your actual link
+      setIsCopied(true);
+
+      // Reset isCopied after a short delay (e.g., 3 seconds)
+      setTimeout(() => {
+        setIsCopied(false);
+      }, 1000);
+
+    } catch (error) {
+      console.error('Error copying to clipboard', error);
+    }
+  };
+
   const languageOptions = {
     en: 'English',
-    jp: 'Japanese',
-    zh: 'Chinese',
-    ko: 'Korean',
+    jp: '日本語',
+    zh: '中文',
+    ko: '한국인',
     // Add other language options as needed
   } as { [key: string]: string };
 
   const controls = useAnimation();
+
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen); // Toggle the menu state
+  };
+
+  const closeMenu = () => {
+    setIsMenuOpen(false);
+  };
+
+  const translatedTexts = {
+    en: {
+      shareLink: 'Share this Link',
+      shareSnapChat: 'Share on Snapchat',
+      shareFacebook: 'Share on Facebook',
+      shareLinkedIn: 'Share on LinkedIn',
+      shareXTwitter: 'Share on X',
+      shareWhatsApp: 'Share via WhatsApp',
+      shareMessenger: 'Share via Messenger',
+      shareEmail: 'Share via Email',
+      copy: 'Copy',
+      copied: 'Copied!',
+      // Add other English 
+    },
+    jp: {
+      shareLink: 'このリンクを共有',
+      shareSnapChat: 'Snapchatで共有',
+      shareFacebook: 'Facebook で共有',
+      shareLinkedIn: 'LinkedIn で共有',
+      shareXTwitter: 'Xで共有',
+      shareWhatsApp: 'WhatsApp経由で共有',
+      shareMessenger: 'Messenger経由で共有',
+      shareEmail: '電子メールで共有',
+      copy: 'コピー',
+      copied: 'コピーされました!',
+      // Add other Japanese 
+    },
+    zh: {
+      shareLink: '分享此链接',
+      shareSnapChat: '在 Snapchat 上分享',
+      shareFacebook: '在 Facebook 上分享',
+      shareLinkedIn: '在 LinkedIn 上分享',
+      shareXTwitter: '在 X 上分享',
+      shareWhatsApp: '通过 WhatsApp 分享',
+      shareMessenger: '通过 Messenger 分享',
+      shareEmail: '通过电子邮件分享',
+      copy: '复制',
+      copied: '已复制！',
+      // Add other Chinese 
+    },
+    ko: {
+      shareLink: '이 링크를 공유하세요',
+      shareSnapChat: 'Snapchat에서 공유',
+      shareFacebook: '페이스북에 공유',
+      shareLinkedIn: 'LinkedIn에서 공유',
+      shareXTwitter: 'X에서 공유',
+      shareWhatsApp: 'WhatsApp을 통해 공유',
+      shareMessenger: '메신저를 통해 공유',
+      shareEmail: '이메일을 통해 공유',
+      copy: '복사',
+      copied: '복사됨!',
+      // Add other Korea 
+    },
+  };
 
   // URL to link to
   const targetUrl = 'http://192.168.0.10:3000/';
@@ -89,6 +173,7 @@ export default function Home() {
   }, [controls]);
 
   return (
+
     <motion.section
       initial={{ opacity: 0, rotateY: -180 }}
       animate={controls}
@@ -96,86 +181,6 @@ export default function Home() {
       className="relative"
       transition={{ duration: 1 }}
     >
-      <nav className="z-50">
-        <div className="relative bg-transparent">
-          <div className="mx-auto px-4 sm:px-6">
-            <div className="flex justify-between items-center border-gray-100 py-6 md:space-x-10">
-              <div className="flex justify-start xl:w-0 xl:flex-1">
-                <div className="relative mt-1">
-                  <div className="h-26 bg-transparent lg:hidden">
-                    <button
-                      className={`relative text-center h-10 w-16 transition-all duration-500
-                      before:absolute before:top-0 before:left-0 before:w-full before:h-full before:bg-white before:transition-all
-                      before:duration-300 before:opacity-10 before:hover:opacity-0 before:hover:scale-50
-                      after:absolute after:top-0 after:left-0 after:w-full after:h-full after:opacity-0 after:transition-all after:duration-300
-                      after:border after:border-white/50 after:scale-125 after:hover:opacity-100 after:hover:scale-100 after:hover:border-black after:hover:border-2`}
-                      onClick={toggleDropdown}
-                    >
-                      <span className="relative text-black uppercase font-thin">
-                        {selectedLanguage.toUpperCase()}
-                      </span>
-                    </button>
-                    {isDropdownOpen && (
-                      <div className="absolute z-10 mt-2 transform -translate-x-1/2 left-1/2 bg-white shadow-lg rounded-md overflow-hidden">
-                        {Object.keys(languageOptions).map((langCode) => (
-                          <button
-                            key={langCode}
-                            className={`block w-full text-left px-4 py-2 text-gray-800 hover:bg-gray-100 ${selectedLanguage === langCode ? 'bg-gray-200' : ''}`}
-                            onClick={() => {
-                              switchLanguage(langCode as Language);
-                              toggleDropdown();
-                            }}
-                          >
-                            {languageOptions[langCode]}
-                          </button>
-                        ))}
-                      </div>
-                    )}
-                  </div>
-                </div>
-              </div>
-              <div className="hidden lg:flex items-center justify-end md:flex-1 lg:w-0">
-              </div>
-
-              <div className="mb-responsive hidden lg:flex" id="a">
-                <div className="relative">
-                  <div className="place-content-end h-26 bg-transparent">
-                    <button
-                      className={`relative text-center h-10 w-20 transition-all duration-500
-                            before:absolute before:top-0 before:left-0 before:w-full before:h-full before:bg-white before:transition-all
-                            before:duration-300 before:opacity-10 before:hover:opacity-0 before:hover:scale-50
-                            after:absolute after:top-0 after:left-0 after:w-full after:h-full after:opacity-0 after:transition-all after:duration-300
-                            after:border after:border-white/50 after:scale-125 after:hover:opacity-100 after:hover:scale-100 after:hover:border-black after:hover:border-2`}
-                      onClick={toggleDropdown}
-                    >
-                      <span className="relative text-black font-thin">
-                        {languageOptions[selectedLanguage]}
-                      </span>
-                    </button>
-                    {isDropdownOpen && (
-                      <div className="absolute z-10 mt-2 transform -translate-x-1/2 left-1/2 bg-white shadow-lg rounded-md overflow-hidden">
-                        {Object.keys(languageOptions).map((langCode) => (
-                          <button
-                            key={langCode}
-                            className={`block w-full text-left px-4 py-2 text-gray-800 hover:bg-gray-100 ${selectedLanguage === langCode ? 'bg-gray-200' : ''}`}
-                            onClick={() => {
-                              switchLanguage(langCode as Language);
-                              toggleDropdown();
-                            }}
-                          >
-                            {languageOptions[langCode]}
-                          </button>
-                        ))}
-                      </div>
-                    )}
-                  </div>
-                </div>
-              </div>
-
-            </div>
-          </div>
-        </div>
-      </nav>
       {employees.length > 0 && (
         <motion.div
           initial={{ opacity: 0, rotateY: -180 }}
@@ -183,7 +188,8 @@ export default function Home() {
           exit={{ opacity: 0, rotateY: -180 }}
           transition={{ duration: 1 }}
           className="bg-transparent flex flex-wrap items-center justify-center"
-          style={{ padding: '100px 10px 100px 10px' }}>
+          style={{ padding: '100px 10px 100px 10px' }}
+        >
           <motion.div
             className="container lg:w-5/6 h-4/5 xl:w-5/6 sm:w-full md:w-2/3 border-black border-4 bg-transparent transform duration-200 easy-in-out"
             style={{
@@ -195,7 +201,213 @@ export default function Home() {
             animate={{ rotateY: 0 }}
             transition={{ duration: 1 }}
 
+
           >
+            <div className="mx-auto px-4 sm:px-6">
+              <div className="flex justify-between items-center border-white py-6 md:space-x-10">
+                <div className="flex justify-start xl:w-0 xl:flex-1">
+                  <div className="relative mt-1">
+                    <div className="h-26 bg-transparent">
+                      <button
+                        className={`relative text-center h-10 w-20 transition-all duration-500
+                      before:absolute before:top-0 before:left-0 before:w-full before:h-full before:bg-transparent before:transition-all
+                      before:duration-300 before:opacity-10 before:hover:opacity-0 before:hover:scale-50
+                      after:absolute after:top-0 after:left-0 after:w-full after:h-full after:opacity-0 after:transition-all after:duration-300
+                      after:border after:border-white/50 after:scale-125 after:hover:opacity-100 after:hover:scale-100 after:hover:bg-transparent after:hover:border-2`}
+                        onClick={toggleDropdown}
+                      >
+                        <span className="relative text-white font-thin">
+                          {languageOptions[selectedLanguage]}
+                        </span>
+                      </button>
+                      {isDropdownOpen && (
+                        <div className="absolute z-10 mt-2 transform -translate-x-1/2 left-1/2 bg-transparent shadow-lg rounded-md overflow-hidden">
+                          {Object.keys(languageOptions).map((langCode) => (
+                            <button
+                              key={langCode}
+                              className={`block w-full text-left px-4 py-2 text-white hover:bg-gray-800 ${selectedLanguage === langCode ? 'bg-gray-800' : ''}`}
+                              onClick={() => {
+                                switchLanguage(langCode as Language);
+                                toggleDropdown();
+                              }}
+                            >
+                              {languageOptions[langCode]}
+                            </button>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                </div>
+
+                <div className="flex justify-end xl:w-0 xl:flex-1">
+                  <div className="relative mt-1">
+                    <div className="h-26 bg-transparent">
+                      <button
+                        className={`relative text-center h-10 w-8 transition-all duration-500 text-white`}
+                        aria-expanded={isMenuOpen ? 'true' : 'false'}
+                        onClick={toggleMenu}
+                      >
+                        <FontAwesomeIcon icon={faEllipsisH} size="lg" />
+                      </button>
+
+                      {isMenuOpen && (
+                        <div data-backdrop="static" id="Menus" className="fixed top-0 left-0 w-full h-full z-50 overflow-y-auto" onClick={closeMenu}>
+                          <div className="h-full w-full" style={{
+                            position: 'fixed',
+                            inset: 0,
+                            backgroundColor: 'rgba(0, 0, 0, 0.5)',
+                            transition: 'opacity 0.3s',
+                          }}>
+                          </div>
+                          <div className="relative z-10" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+                            {/* <div className="mt-20 fixed inset-0 bg-transparent bg-opacity-100 transition-opacity"></div> */}
+                            <div className="mt-20 fixed inset-0 z-10">
+                              <div className="flex items-end justify-center p-4 text-center sm:p-0">
+                                <div className="relative rounded-lg bg-transparent text-left transition-all md:px-40 lg:px-60 max-h-[80vh] overflow-y-auto">
+                                  <div className="w-full bg-gray-50 gap-2 px-6 py-6 sm:px-6">
+                                    <div className="min-w-full min-h-full inline-flex w-full ml-0 justify-between rounded-md bg-gray-50 py-2 text-lg font-bold text-gray-700 sm:mt-0 sm:w-auto sm:text-lg md:mx-2 md:w-auto md:text-lg">
+                                      <div
+                                        className={`relative text-center w-8 transition-all duration-500 text-black`}
+                                      >
+                                      </div>
+                                      <span>{translatedTexts[selectedLanguage].shareLink}</span>
+                                      <button
+                                        className={`relative text-center w-8 transition-all duration-500 text-black`}
+                                        onClick={toggleMenu}
+                                      >
+                                        <FontAwesomeIcon icon={faTimes} size="lg" />
+                                      </button>
+                                    </div>
+
+                                    <button
+                                      type="button"
+                                      className="min-w-full min-h-full inline-flex w-full ml-1 justify-between items-center rounded-md bg-gray-50 px-1 py-4 text-lg text-gray-700 hover:bg-gray-200 hover:text-black sm:mt-0 sm:w-auto sm:text-lg md:mx-2 md:w-auto md:text-lg"
+                                      onClick={(e) => {
+                                        e.stopPropagation();
+                                      }}
+                                    >
+                                      <div className="flex items-center">
+                                        <FontAwesomeIcon icon={faSquareSnapchat} className="mx-2 text-yellow-300" size="2x" />
+                                        <span className="mx-1">{translatedTexts[selectedLanguage].shareSnapChat}</span>
+                                      </div>
+                                      <div className="flex items-center">
+                                        <FontAwesomeIcon icon={faChevronRight} className="mx-2 text-gray-500" size="1x" />
+                                      </div>
+                                    </button>
+                                    <button type="button" className="min-w-full min-h-full inline-flex w-full ml-1 justify-between items-center rounded-md bg-gray-50 px-1 py-4 text-lg text-gray-700 hover:bg-gray-200 hover:text-black sm:mt-0 sm:w-auto sm:text-lg md:mx-2 md:w-auto md:text-lg"
+                                      onClick={(e) => {
+                                        e.stopPropagation();
+                                      }}
+                                    >
+                                      <div className="flex items-center">
+                                        <FontAwesomeIcon icon={faFacebook} className="mx-2 text-blue-700" size="2x" />
+                                        <span className="mx-1">{translatedTexts[selectedLanguage].shareFacebook}</span>
+                                      </div>
+                                      <div className="flex items-center">
+                                        <FontAwesomeIcon icon={faChevronRight} className="mx-2 text-gray-500" size="1x" />
+                                      </div>
+                                    </button>
+                                    <button type="button" className="min-w-full min-h-full inline-flex w-full ml-1 justify-between items-center rounded-md bg-gray-50 px-1 py-4 text-lg text-gray-700 hover:bg-gray-200 hover:text-black sm:mt-0 sm:w-auto sm:text-lg md:mx-2 md:w-auto md:text-lg"
+                                      onClick={(e) => {
+                                        e.stopPropagation();
+                                      }}
+                                    >
+                                      <div className="flex items-center">
+                                        <FontAwesomeIcon icon={faLinkedin} className="mx-2 text-blue-500" size="2x" />
+                                        <span className="mx-1">{translatedTexts[selectedLanguage].shareLinkedIn}</span>
+                                      </div>
+                                      <div className="flex items-center">
+                                        <FontAwesomeIcon icon={faChevronRight} className="mx-2 text-gray-500" size="1x" />
+                                      </div>
+                                    </button>
+                                    <button type="button" className="min-w-full min-h-full inline-flex w-full ml-1 justify-between items-center rounded-md bg-gray-50 px-1 py-4 text-lg text-gray-700 hover:bg-gray-200 hover:text-black sm:mt-0 sm:w-auto sm:text-lg md:mx-2 md:w-auto md:text-lg"
+                                      onClick={(e) => {
+                                        e.stopPropagation();
+                                      }}
+                                    >
+                                      <div className="flex items-center">
+                                        <FontAwesomeIcon icon={faXTwitter} className="mx-2" size="2x" />
+                                        <span className="mx-1">{translatedTexts[selectedLanguage].shareXTwitter}</span>
+                                      </div>
+                                      <div className="flex items-center">
+                                        <FontAwesomeIcon icon={faChevronRight} className="mx-2 text-gray-500" size="1x" />
+                                      </div>
+                                    </button>
+                                    <button type="button" className="min-w-full min-h-full inline-flex w-full ml-1 justify-between items-center rounded-md bg-gray-50 px-1 py-4 text-lg text-gray-700 hover:bg-gray-200 hover:text-black sm:mt-0 sm:w-auto sm:text-lg md:mx-2 md:w-auto md:text-lg"
+                                      onClick={(e) => {
+                                        e.stopPropagation();
+                                      }}
+                                    >
+                                      <div className="flex items-center">
+                                        <FontAwesomeIcon icon={faWhatsapp} className="mx-2 text-green-600" size="2x" />
+                                        <span className="mx-1">{translatedTexts[selectedLanguage].shareWhatsApp}</span>
+                                      </div>
+                                      <div className="flex items-center">
+                                        <FontAwesomeIcon icon={faChevronRight} className="mx-2 text-gray-500" size="1x" />
+                                      </div>
+                                    </button>
+                                    <button type="button" className="min-w-full min-h-full inline-flex w-full ml-1 justify-between items-center rounded-md bg-gray-50 px-1 py-4 text-lg text-gray-700 hover:bg-gray-200 hover:text-black sm:mt-0 sm:w-auto sm:text-lg md:mx-2 md:w-auto md:text-lg"
+                                      onClick={(e) => {
+                                        e.stopPropagation();
+                                      }}
+                                    >
+                                      <div className="flex items-center">
+                                        <FontAwesomeIcon icon={faFacebookMessenger} className="mx-2" size="2x" style={{ color: '#0084FF' }} />
+                                        <span className="mx-1">{translatedTexts[selectedLanguage].shareMessenger}</span>
+                                      </div>
+                                      <div className="flex items-center">
+                                        <FontAwesomeIcon icon={faChevronRight} className="mx-2 text-gray-500" size="1x" />
+                                      </div>
+                                    </button>
+                                    <button type="button" className="min-w-full min-h-full inline-flex w-full ml-1 justify-between items-center rounded-md bg-gray-50 px-1 py-4 text-lg text-gray-700 hover:bg-gray-200 hover:text-black sm:mt-0 sm:w-auto sm:text-lg md:mx-2 md:w-auto md:text-lg"
+                                      onClick={(e) => {
+                                        window.location.href = `mailto:${employees[0].email}`;
+                                        e.stopPropagation();
+                                      }}
+                                    >
+                                      <div className="flex items-center">
+                                        <FontAwesomeIcon icon={faEnvelope} className="mx-2 text-gray-700" size="2x" />
+                                        <span className="mx-1">{translatedTexts[selectedLanguage].shareEmail}</span>
+                                      </div>
+                                      <div className="flex items-center">
+                                        <FontAwesomeIcon icon={faChevronRight} className="mx-2 text-gray-500" size="1x" />
+                                      </div>
+                                    </button>
+                                    <div className="flex justify-center">
+                                      <button
+                                        type="button"
+                                        className={`min-h-full inline-flex justify-between items-center space-x-2 border-gray-300 border-2 rounded-xl bg-gray-50 px-1 py-4 text-xs text-gray-700 hover:bg-gray-200 hover:text-black sm:mt-0 sm:w-auto sm:text-lg md:mx-2 md:w-auto md:text-lg ${isCopied ? 'cursor-not-allowed' : 'cursor-pointer'}`}
+                                        onClick={(e) => {
+                                          handleCopyClick();
+                                          e.stopPropagation(); // Prevent the click event from reaching the outer div
+                                        }}
+                                        disabled={isCopied}
+                                      >
+                                        <p className="flex items-center">
+                                          <FontAwesomeIcon icon={faCopy} className="mx-2 text-gray-600" size="xl" />
+                                          <span className="mx-2">https://youtu.be/shZyg5VFI...</span>
+                                        </p>
+                                        <p className="flex items-center">
+                                          <span className="text-gray-500 font-bold md:mx-12 lg:mx-12"></span>
+                                        </p>
+                                        <p className="flex items-center">
+                                          <span className={`mx-2 text-gray-500 font-bold ${isCopied ? 'text-green-500' : ''}`}>{isCopied ? translatedTexts[selectedLanguage].copied : translatedTexts[selectedLanguage].copy}</span>
+                                        </p>
+                                      </button>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
             <div className="h-32 overflow-hidden">
             </div>
             <div className="flex justify-center px-5 py-2 -mt-12">
@@ -321,6 +533,26 @@ export default function Home() {
                           </div>
                         </button>
                       </a>
+
+                      {/* <div className='flex break-inside text-white border-2 border-white rounded-3xl px-6 py-3 w-full bg-black hover:shadow-[inset_75rem_0_0_0] hover:text-black hover:shadow-white duration-700 transition-[color,box-shadow] '>
+                        <a href={contact.connectSection.socialMediaLinks.twitter} target="_blank" className="">
+                          <div className='flex items-center flex-1 space-x-4'>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 512 512">
+                              <path d="M389.2 48h70.6L305.6 224.2 487 464H345L233.7 318.6 106.5 464H35.8L200.7 275.5 26.8 48H172.4L272.9 180.9 389.2 48zM364.4 421.8h39.1L151.1 88h-42L364.4 421.8z" />
+                            </svg>
+                            <span className='font-medium mb-[-2px]'>{contact.connectSection.buttonText[selectedLanguage]} X Twitter</span>
+                          </div>
+                        </a>
+                        <div className="ml-auto items-center flex justify-start">
+                          <button
+                            type='button'
+                            className=''
+                          >
+                            <FontAwesomeIcon icon={faEllipsisH} size="lg" />
+                          </button>
+                        </div>
+                      </div> */}
+
                     </div>
                   </div>
                 ))}
@@ -329,7 +561,8 @@ export default function Home() {
             </div>
           </motion.div>
         </motion.div>
-      )}
+      )
+      }
     </motion.section >
   );
 

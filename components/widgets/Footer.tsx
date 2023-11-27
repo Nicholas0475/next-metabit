@@ -62,9 +62,9 @@ const Footer = () => {
 
                 <div className="px-7 pb-8 pt-2 mx-auto sm:px-6 md:flex md:items-center md:justify-between lg:px-21 max-w-9xl">
                     <div className="flex justify-center items-center mb-4 space-x-1 md:order-last md:mb-0">
-                        <span className="max-w-5xl text-xl font-bold leading-none tracking-tighter text-black sm:text-xl md:text-2xl lg:text-xl lg:max-w-7xl">
+                        {/* <span className="max-w-5xl text-xl font-bold leading-none tracking-tighter text-black sm:text-xl md:text-2xl lg:text-xl lg:max-w-7xl">
                             Metabit
-                        </span>
+                        </span> */}
                         <img
                             className="h-12"
                             src="/logo2.png"

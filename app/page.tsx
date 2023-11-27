@@ -264,7 +264,7 @@ export default function Home() {
                             {/* <div className="mt-20 fixed inset-0 bg-transparent bg-opacity-100 transition-opacity"></div> */}
                             <div className="mt-20 fixed inset-0 z-10">
                               <div className="flex items-end justify-center p-4 text-center sm:p-0">
-                                <div className="relative rounded-lg bg-transparent text-left transition-all md:px-40 lg:px-60 max-h-[80vh] overflow-y-auto">
+                                <div className="relative rounded-lg bg-transparent text-left transition-all max-h-[80vh] overflow-y-auto sm:max-w-sm md:max-w-md lg:max-w-lg">
                                   <div className="w-full bg-gray-50 gap-2 px-6 py-6 sm:px-6">
                                     <div className="min-w-full min-h-full inline-flex w-full ml-0 justify-between rounded-md bg-gray-50 py-2 text-lg font-bold text-gray-700 sm:mt-0 sm:w-auto sm:text-lg md:mx-2 md:w-auto md:text-lg">
                                       <div
@@ -377,7 +377,7 @@ export default function Home() {
                                     <div className="flex justify-center">
                                       <button
                                         type="button"
-                                        className={`min-h-full inline-flex justify-between items-center space-x-2 border-gray-300 border-2 rounded-xl bg-gray-50 px-1 py-4 text-xs text-gray-700 hover:bg-gray-200 hover:text-black sm:mt-0 sm:w-auto sm:text-lg md:mx-2 md:w-auto md:text-lg ${isCopied ? 'cursor-not-allowed' : 'cursor-pointer'}`}
+                                        className={`min-h-full inline-flex justify-between items-center space-x-2 border-gray-300 border-2 rounded-xl bg-gray-50 py-4 text-xs text-gray-700 hover:bg-gray-200 hover:text-black sm:mt-0 sm:w-auto sm:text-xs md:mx-2 md:w-auto md:text-xs lg:w-auto lg:text-sm ${isCopied ? 'cursor-not-allowed' : 'cursor-pointer'}`}
                                         onClick={(e) => {
                                           handleCopyClick();
                                           e.stopPropagation(); // Prevent the click event from reaching the outer div

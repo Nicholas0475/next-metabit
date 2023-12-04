@@ -261,7 +261,6 @@ export default function Home() {
                           }}>
                           </div>
                           <div className="relative z-10" aria-labelledby="modal-title" role="dialog" aria-modal="true">
-                            {/* <div className="mt-20 fixed inset-0 bg-transparent bg-opacity-100 transition-opacity"></div> */}
                             <div className="mt-20 fixed inset-0 z-10">
                               <div className="flex items-end justify-center p-4 text-center sm:p-0">
                                 <div className="relative rounded-lg bg-transparent text-left transition-all max-h-[80vh] overflow-y-auto sm:max-w-sm md:max-w-md lg:max-w-lg">
@@ -377,10 +376,10 @@ export default function Home() {
                                     <div className="flex justify-center">
                                       <button
                                         type="button"
-                                        className={`min-h-full inline-flex justify-between items-center space-x-2 border-gray-300 border-2 rounded-xl bg-gray-50 py-4 text-xs text-gray-700 hover:bg-gray-200 hover:text-black sm:mt-0 sm:w-auto sm:text-xs md:mx-2 md:w-auto md:text-xs lg:w-auto lg:text-sm ${isCopied ? 'cursor-not-allowed' : 'cursor-pointer'}`}
+                                        className={`min-h-full inline-flex justify-between items-center space-x-2 border-gray-300 border-2 rounded-xl bg-gray-50 py-4 text-xs text-gray-700 hover:bg-gray-200 hover:text-black sm:mt-0 sm:w-auto sm:text-xs md:mx-2 md:w-auto md:text-xs lg:w-auto ${isCopied ? 'cursor-not-allowed' : 'cursor-pointer'}`}
                                         onClick={(e) => {
                                           handleCopyClick();
-                                          e.stopPropagation(); // Prevent the click event from reaching the outer div
+                                          e.stopPropagation();
                                         }}
                                         disabled={isCopied}
                                       >
@@ -548,26 +547,6 @@ export default function Home() {
                           </div>
                         </button>
                       </a>
-
-                      {/* <div className='flex break-inside text-white border-2 border-white rounded-3xl px-6 py-3 w-full bg-black hover:shadow-[inset_75rem_0_0_0] hover:text-black hover:shadow-white duration-700 transition-[color,box-shadow] '>
-                        <a href={contact.connectSection.socialMediaLinks.twitter} target="_blank" className="">
-                          <div className='flex items-center flex-1 space-x-4'>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 512 512">
-                              <path d="M389.2 48h70.6L305.6 224.2 487 464H345L233.7 318.6 106.5 464H35.8L200.7 275.5 26.8 48H172.4L272.9 180.9 389.2 48zM364.4 421.8h39.1L151.1 88h-42L364.4 421.8z" />
-                            </svg>
-                            <span className='font-medium mb-[-2px]'>{contact.connectSection.buttonText[selectedLanguage]} X Twitter</span>
-                          </div>
-                        </a>
-                        <div className="ml-auto items-center flex justify-start">
-                          <button
-                            type='button'
-                            className=''
-                          >
-                            <FontAwesomeIcon icon={faEllipsisH} size="lg" />
-                          </button>
-                        </div>
-                      </div> */}
-
                     </div>
                   </div>
                 ))}

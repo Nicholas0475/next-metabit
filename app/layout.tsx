@@ -39,14 +39,12 @@ export default function RootLayout({ children }: LayoutProps) {
       <body className='bg-white'>
         <AOSInit />
         <LanguageProvider>
-          <Providers>
             <main>
               <DynamicComponentWithNoSSR/>
               {/* <Header /> */}
               {children}
               <Footer />
             </main>
-          </Providers>
         </LanguageProvider>
       </body>
     </html>
